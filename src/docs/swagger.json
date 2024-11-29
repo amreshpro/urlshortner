@@ -1,0 +1,42 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Blog API",
+    "version": "1.0.0",
+    "description": "API documentation for the blog app"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000",
+      "description": "Development server"
+    }
+  ],
+  "paths": {
+   },
+  "components": {
+    "schemas": {
+      "BlogPost": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique identifier for the blog post"
+          },
+          "title": {
+            "type": "string",
+            "description": "Title of the blog post"
+          },
+          "content": {
+            "type": "string",
+            "description": "Content of the blog post"
+          },
+          "imageUrl": {
+            "type": "string",
+            "description": "Upload image url or image file with fieldname `image`"
+          }
+        },
+        "required": ["title", "content"]
+      }
+    }
+  }
+}
