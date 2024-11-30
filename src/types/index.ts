@@ -57,3 +57,7 @@ export interface CreateUserRequest extends Request {
     country: string;
   };
 }
+
+export interface UrlType {
+  url: string;
+}

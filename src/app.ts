@@ -5,29 +5,29 @@ import loggerMiddleware from "./middleware/logger";
 import globalErrorHandler from "./middleware/errors";
 import userRouter from "./routes/user";
 import authRouter from "./routes/auth";
-import path from "path";
 import cors from "cors";
 import swagger from "./docs/swagger.json";
 import helmet from "helmet";
+import { authenticateJWT } from "./middleware/jwt";
+import { authorize } from "./middleware/auth/roles";
+import urlShortnerRouter from "./routes/url";
 
 const app = express();
-
-// This will serve the generated json document(s)
-// (as well as the swagger-ui if configured)
 
 // middleware
 app.use(express.json());
 app.use(urlencoded({ extended: true }));
 // Swagger UI route
 // app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+
 // logger middleware
 app.use(loggerMiddleware);
-app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 app.use(cors());
 
 // Routes
-app.use("/api/v1/users", userRouter);
+app.use("/api/v1/user", authenticateJWT, authorize(), userRouter);
 app.use("/api/v1/auth", authRouter);
+app.use("/api/v1/urls", authenticateJWT, urlShortnerRouter);
 
 app.use("/api/v1/docs", swaggerUi.serve, swaggerUi.setup(swagger));
 
