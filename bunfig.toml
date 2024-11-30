@@ -1,3 +1,0 @@
-name = "blog-app"
-entry = "index.ts"
-outdir = "dist"
